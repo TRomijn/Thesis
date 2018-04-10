@@ -1,0 +1,1748 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Facility Location Model-V4 with EMA \& Platypus optimisation V4 Documentation V1}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \subsection{Versions}\label{versions}
+
+Facility Location Model Versions: * V1: Includes objective: transport
+costs * V2: Includes allocation of locations to supply hubs * V3:
+Includes objective: opening costs * V4: Simplification of allocation
+matrix: - Not Tested yet * All Facility locations are allocated to
+closest supply point * All Demand points are allocated to closest FL if
+within max. covering range
+
+EMA \& Platypus optimisation Versions: * V1: includes optimisation via
+Platypus * V2: included model completely in ema\_workbench environment *
+V3: Working single run EMA * V4: Implemented use of kwargs: Levers and
+case instantiation. Case is now instantiated outside model, by ema
+uncertainties and ema constant
+
+Documentation in Jupyter Notebook: * Added linear programming model in
+formulas
+
+    \section{Next steps}\label{next-steps}
+
+    TODO: Organise this to 1FLM, 2EMA,3Doc
+
+Choices: - Capacitated vs uncapacitated? - Endogenous vs exogenous
+number of facilities each optimisation step - each increment: exogenous
+- Full network: endogenous
+
+Do: - Assign demand points to closest facilities (:allocation) - Done -
+optimise with only distance to linked demand points - Done - set up with
+EMA - Now - Done - 1. be able to run single - specific Scen:
+uncertainties: Case instantiation - specific Pol - 2. be able to run
+multi - multi scen - multi pol - Coverage - TODO - Each FL has a range
+of coverage (and capacity?) - Allocation: if closest FL is closer than
+range: allocate. Otherwise don't allocate - Coverage: for each supply
+point: if not allocated: add demand to uncovered demand - allocation:
+make sure all FL are connected to a SP - TODO - Solution 1 - Found in
+Maharjan Hanaoka 2018: - Allocation of hubs to supply point is directly.
+Not via other hubs - Easiest and also assumed in other models. Also easy
+to argue for. - Solution 2 - for each demand poind point: go to closest
+- for each FL: - if angle to SP via FLX is larger than 90degrees: go via
+FLX - if angle to SP via FLX is smaller than 90degrees: go directly -
+social costs - distinction between transportation costs: to
+FLs(transportation costs) and to demand (social costs) - costs: -
+multiplication of distance with matrix for quantities (for both
+transportation and social costs) - different transportation unit costs
+for SP -\/-\textgreater{} FL and FL -\/-\textgreater{} DP - equity
+
+How: - create for each demand class a "allocated facility" - Only add
+costs for distances between "linked" demand-facility points - look at
+paper guthjahr? user equilibrium?
+
+    Do later, or for further research: - implement multiple types of
+allocation (this way, or covering tour),
+
+    \section{Model XLRM}\label{model-xlrm}
+
+\begin{itemize}
+\tightlist
+\item
+  External factors
+\item
+  Levers
+\item
+  Relations
+\item
+  Metrics of performance
+\end{itemize}
+
+    \subsection{Nomenclature}\label{nomenclature}
+
+Sets: - I: Demand Points - J: Temporary Distribution Centres (FL) - K:
+Supply Points - T: Time Periods - N: Nodes : \(I \cup J \cup K\)
+
+Decision Variables: - Xj: Binary decision variable indicating whether FL
+j is opened (1) or closed (0)
+
+Parameters: - \(Allocated_{i,j} : A_{i,j}\) : binary value indicating
+whether DP i is allocated to FL j - \(Allocated_{j,k} : A_{j,k}\) :
+binary value indicating whether FL j is allocated to SP k - \(Demand_i\)
+: Demand at demand point i\\
+- \(Distance_{n_1,n_2}\) : Distance between two nodes - \(Supply_{i,j}\)
+: Supply from FL j to DP i - \(Supply_{k,j}\) : Supply from SP k to FL j
+- \(Unit\_transportation\_costs\) : Costs for transporting one unit of
+goods
+
+Matrices: - Distance matric with all distances between all nodes (i,j
+and k) - Allocations matrix with all binary values of allocation for all
+nodes (i,j and k) - ?Supply matrix? - Most relevant to capacitated
+system
+
+    \subsection{System:}\label{system}
+
+    \subsection{External Factors: Define
+model}\label{external-factors-define-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} Impact landscape \PYZhy{}\PYZhy{}\PYZgt{} Demand}
+\end{Verbatim}
+
+
+    \subsection{Levers}\label{levers}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} operational\PYZus{}facilities = [fl1,fl2,fl3,fl4]}
+        
+        \PY{c+c1}{\PYZsh{} constraints:}
+        \PY{c+c1}{\PYZsh{} fl1,fl2,fl3,fl4: (0,1) \PYZsh{} 0: not operational, 1: operational}
+\end{Verbatim}
+
+
+    \subsection{Relations}\label{relations}
+
+\subsection{Assumptions}\label{assumptions}
+
+Uncapacitated
+
+\begin{itemize}
+\tightlist
+\item
+  no restrictions on supply from k to j, or j to i
+\end{itemize}
+
+Allocation of DP to FL
+
+Choice: 1. Demand points are assigned to closest operational hub
+(Gutjahr2016: Typically it's supposed that beneficiaries walk to the
+nearest DC) 2. Allocation of demand points to hubs is optimised with the
+allocation of demand point to hub being a binary decision variable (0 or
+1), such as in Maharjan\&Hanaoka2018. 3. Via a lower-level
+user-equilibrium, which takes both distance as expected supply in
+account
+
+Option 1 is chosen for multiple reasons. First, it will significantly
+reduce runtime, which is very welcome looking at the extensive
+computational experiments planned with the model. Second: beneficiaries
+choose between different hubs, regardless of coordinated allocation. For
+this study it's assumed that beneficiaries walk towards the nearest hub.
+Gutjahr2016, make a more realistic option for capacitated problems, but
+since this research considers an uncapacitated problem , their solution
+is irrelevant.
+
+Regarding maximum covering distance: Some demand points are located too
+far from hubs to be supplied with relief aid. Therefore the assumption
+is made that there is a maximum distance for hubs to cover demand
+points. This maximum distance corresponds to the maximum distance that
+beneficiaries are willing to travel for supplies (XXparameter could
+affect social cost). XXTODO: Find source
+
+Allocation of FL to Supply Points
+
+\begin{itemize}
+\tightlist
+\item
+  Hubs (FL) are assigned to closest supply point
+\end{itemize}
+
+    \subsection{Metrics of performance}\label{metrics-of-performance}
+
+    \subsubsection{Objective Function 1: Minimise Total
+Costs}\label{objective-function-1-minimise-total-costs}
+
+Total costs include a fixed costs for opening Facility Locations,
+Transportation costs from Supply Points to Facility Locations and
+Transportation costs from Facility Locations to Demand Points
+
+Maharjan, R., \& Hanaoka, S. (2018). A multi-actor multi-objective
+optimization approach for locating temporary logistics hubs during
+disaster response. Journal of Humanitarian Logistics and Supply Chain
+Management, JHLSCM-08-2017-0040.
+https://doi.org/10.1108/JHLSCM-08-2017-0040
+
+    \paragraph{Total opening costs Facility
+Locations}\label{total-opening-costs-facility-locations}
+
+\[\sum_{j} Fixed opening costs * Xj \]
+
+\subparagraph{Fixed opening costs}\label{fixed-opening-costs}
+
+Associated with: - the initial investment for the temporary distribution
+centre - procurement cost - cost of leasing land based on
+Maharjan\&Hanaoko2018
+
+\paragraph{transportation costs}\label{transportation-costs}
+
+\[Transportation\_costs\_SP\_FL=\sum_{FL} distance_{SP,FL} * unit\_distance\_costs * Supply_{j,k}\]
+\[Transportation\_costs\_FL\_DP=\sum_{DP} distance_{FL,DP} * unit\_distance\_costs * Supply_{i,j}\]
+
+Calculates the costs of transportation between all facility locations to
+all supply and demand points
+
+Assumptions: / Constraints: - Each demand point has only one temporary
+distribution centre (closest) - Each temporary distribution centre has
+only one supply point (closest)
+
+TODO: Renew Formula, based on model and Maharjan\&Hanaoka2018
+
+    \subsubsection{Objective Function 2: Minimise Total Uncovered
+Demand}\label{objective-function-2-minimise-total-uncovered-demand}
+
+2 options: 1. Demand points can be uncovered because not enough supply
+at distribution points 2. Demand points can be uncovered because not
+close enough to distribution points
+
+Option 2 is chosen, because with option 1 the choice for hubs is based
+on capacity of hubs, while the focus of this research is on the
+locations of the hubs. (Influence of locations on uncertainty and
+performance).
+
+Look at Covering Tour: uses range distance?
+
+    \[
+uncovered\_demand = \sum_{I} demand_{i} - \sum_{I} \sum_{J} supply_{i,j}
+\]
+
+Relation: \$ \sum\_i \sum\emph{j supply}\{i,j\} = \sum\_j \sum\emph{k
+Supply}\{j,k\}\$
+
+supply FL j to DP i is equal to demand i if allocated to FL j:
+\$supply\_\{i,j\} = A\_\{i,j\} * demand\_i \$
+
+    \subsubsection{Objective Function 3: Minimise Maximum Uncovered
+Demand}\label{objective-function-3-minimise-maximum-uncovered-demand}
+
+\subsubsection{Objective Function 4: Minimise Total Distribution
+Times}\label{objective-function-4-minimise-total-distribution-times}
+
+Similar to minimise costs, but different
+
+Minimise: \[ Total Distribution Times = \sum_{DP} times \]
+
+Should be dependent on demand? -\/-\textgreater{} no, so that smaller
+far away but still covered have longer times
+
+\subsubsection{XXNOT Objective Function 5: Minimise Maximum Distribution
+Times}\label{xxnot-objective-function-5-minimise-maximum-distribution-times}
+
+similar to minimise maximum uncovered demand, but only takes covered
+demand into account Can be a better equity objective than minmax
+uncovered, because uncapacitated.
+
+\$Minimise: Max( DT ) \$ Smaller points should have longer DBTimes than
+larger points. Then they are more equitably approached XX
+
+\subsubsection{Objective Function 6: Minimise Social
+costs?}\label{objective-function-6-minimise-social-costs}
+
+How is social costs calculated? \#\#\# Objective Function 7: \#\#\#
+Objective Function 8: Maximise new information
+
+    \section{Model Python}\label{model-python}
+
+    \subsection{Pseudocode}\label{pseudocode}
+
+\begin{verbatim}
+Model:
+    FL Options: FL1,FL2,FL3, ..., FLn
+
+    For option in options:
+        allocate 
+        calculate costs
+        calculate times
+        calculate coverage
+        calculate xx
+        
+Sequence of analysis:
+    Initialise case (input1,input2,input3) #demand_landscape, 
+    Optimise (obj1,obj2,obj3)
+    Check Robustness (unc1,unc2,unc3)
+    Implement best option
+
+    Change uncertainties based on new information due to new FL
+        Do this by reducing uncertainty the most for demand points closer to their preferred DC
+\end{verbatim}
+
+    \subsection{Model structure}\label{model-structure}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} Imports}
+        \PY{k+kn}{import} \PY{n+nn}{random}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{c+c1}{\PYZsh{} import helper\PYZus{}functions as hf \PYZsh{} helpful?}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} Globals}
+        \PY{n}{size\PYZus{}area} \PY{o}{=} \PY{l+m+mi}{10}
+        \PY{n}{nr\PYZus{}demand\PYZus{}points} \PY{o}{=} \PY{l+m+mi}{10}
+        \PY{n}{nr\PYZus{}supply\PYZus{}points} \PY{o}{=} \PY{l+m+mi}{1}
+        \PY{n}{nr\PYZus{}optional\PYZus{}FL} \PY{o}{=} \PY{l+m+mi}{10}
+        \PY{n}{max\PYZus{}nr\PYZus{}FL} \PY{o}{=} \PY{l+m+mi}{2}
+        
+        
+        \PY{c+c1}{\PYZsh{}parameters costs}
+        \PY{n}{unit\PYZus{}transport\PYZus{}cost} \PY{o}{=} \PY{l+m+mi}{1}
+        \PY{n}{unit\PYZus{}opening\PYZus{}costs} \PY{o}{=} \PY{l+m+mi}{100}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} Classes}
+        \PY{k}{class} \PY{n+nc}{demand\PYZus{}class}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Demand points such as affected cities or villages\PYZdq{}\PYZdq{}\PYZdq{}}
+        
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{name}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DP}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{name}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{type} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{demand}\PY{l+s+s2}{\PYZdq{}}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{x} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{size\PYZus{}area}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{y} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{size\PYZus{}area}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{location} \PY{o}{=} \PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{x}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{y}\PY{p}{)}
+        
+                \PY{c+c1}{\PYZsh{} create random demand (random impacted area)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{demand} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{1000}
+        
+        
+        \PY{k}{class} \PY{n+nc}{supply\PYZus{}class}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Supply points such as airports or seaports\PYZdq{}\PYZdq{}\PYZdq{}}
+        
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{name}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SP}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{name}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{type} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{supply}\PY{l+s+s2}{\PYZdq{}}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{x} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{size\PYZus{}area}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{y} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{size\PYZus{}area}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{location} \PY{o}{=} \PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{x}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{y}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{supply} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{1000}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{operational} \PY{o}{=} \PY{l+m+mi}{1}
+        
+        
+        \PY{k}{class} \PY{n+nc}{facility\PYZus{}class}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}(Temporary) Distribution centers to distribute supply to demand\PYZdq{}\PYZdq{}\PYZdq{}}
+        
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{name}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{FL}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{name}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{type} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{facility}\PY{l+s+s2}{\PYZdq{}}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{x} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{size\PYZus{}area}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{y} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{size\PYZus{}area}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{location} \PY{o}{=} \PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{x}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{y}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{operational} \PY{o}{=} \PY{l+m+mi}{0}
+            
+            \PY{n+nd}{@property} \PY{c+c1}{\PYZsh{}test?}
+            \PY{k}{def} \PY{n+nf}{location2}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{x}\PY{p}{,}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{y}\PY{p}{)}
+        
+        
+        \PY{c+c1}{\PYZsh{} Class is unneccessary}
+        \PY{c+c1}{\PYZsh{} class country:}
+        \PY{c+c1}{\PYZsh{}     \PYZdq{}\PYZdq{}\PYZdq{}The combination of all demand and supply points and facility locations\PYZdq{}\PYZdq{}\PYZdq{}}
+        
+        \PY{c+c1}{\PYZsh{}     def \PYZus{}\PYZus{}init\PYZus{}\PYZus{}(self, name):}
+        \PY{c+c1}{\PYZsh{}         self.name = name}
+\end{Verbatim}
+
+
+    \subsubsection{Instantiate model}\label{instantiate-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} Instantiate model}
+        
+        \PY{c+c1}{\PYZsh{} Create airport as a supply point}
+        \PY{n}{supply\PYZus{}points} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{nr\PYZus{}supply\PYZus{}points}\PY{p}{)}\PY{p}{:}
+            \PY{n}{supply\PYZus{}points}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{supply\PYZus{}class}\PY{p}{(}\PY{n}{name}\PY{o}{=}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Create demand points}
+        \PY{n}{demand\PYZus{}points} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{nr\PYZus{}demand\PYZus{}points}\PY{p}{)}\PY{p}{:}
+            \PY{n}{demand\PYZus{}points}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{demand\PYZus{}class}\PY{p}{(}\PY{n}{name}\PY{o}{=}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Create possible facility locations}
+        \PY{n}{facility\PYZus{}locations} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{nr\PYZus{}optional\PYZus{}FL}\PY{p}{)}\PY{p}{:}
+            \PY{n}{facility\PYZus{}locations}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{facility\PYZus{}class}\PY{p}{(}\PY{n}{name}\PY{o}{=}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \(Allocation\_matrix: A\)
+
+\(Distance\_matrix: D\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Organise all nodes and create distance matrix}
+        \PY{n}{all\PYZus{}nodes} \PY{o}{=} \PY{n}{supply\PYZus{}points} \PY{o}{+} \PY{n}{facility\PYZus{}locations} \PY{o}{+} \PY{n}{demand\PYZus{}points}
+        \PY{n}{nr\PYZus{}nodes} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{all\PYZus{}nodes}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} distance matrix}
+        \PY{n}{distances} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{n}{nr\PYZus{}nodes}\PY{p}{,} \PY{n}{nr\PYZus{}nodes}\PY{p}{]}\PY{p}{)}
+        
+        \PY{k}{def} \PY{n+nf}{calculate\PYZus{}distance}\PY{p}{(}\PY{n}{x1}\PY{p}{,} \PY{n}{y1}\PY{p}{,} \PY{n}{x2}\PY{p}{,} \PY{n}{y2}\PY{p}{)}\PY{p}{:}
+            \PY{n}{dx} \PY{o}{=} \PY{n}{x1} \PY{o}{\PYZhy{}} \PY{n}{x2}
+            \PY{n}{dy} \PY{o}{=} \PY{n}{y1} \PY{o}{\PYZhy{}} \PY{n}{y2}
+            \PY{k}{return} \PY{p}{(}\PY{n}{dx}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{dy}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mf}{0.5}
+        
+        
+        
+        
+        \PY{c+c1}{\PYZsh{} \PYZsh{} validated: calculate\PYZus{}distance function}
+        \PY{c+c1}{\PYZsh{} calculate\PYZus{}distance (\PYZhy{}1,\PYZhy{}1,2,3)}
+        \PY{c+c1}{\PYZsh{} \PYZsh{}returns 5.0. \PYZsh{} dx = 3, dy = 4 \PYZhy{}\PYZhy{}\PYZgt{} distance = 5}
+        
+        
+        \PY{c+c1}{\PYZsh{} calculate distance matrix}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{all\PYZus{}nodes}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} Give all nodes in model an identifier corresponding to position in matrix}
+            \PY{n}{all\PYZus{}nodes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{id} \PY{o}{=} \PY{n}{i}
+            \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{all\PYZus{}nodes}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{dist\PYZus{}ij} \PY{o}{=} \PY{n}{calculate\PYZus{}distance}\PY{p}{(}\PY{n}{all\PYZus{}nodes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{x}\PY{p}{,} \PY{n}{all\PYZus{}nodes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{y}\PY{p}{,}
+                                             \PY{n}{all\PYZus{}nodes}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{o}{.}\PY{n}{x}\PY{p}{,} \PY{n}{all\PYZus{}nodes}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{o}{.}\PY{n}{y}\PY{p}{)}
+                \PY{n}{distances}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{dist\PYZus{}ij}
+        
+        \PY{c+c1}{\PYZsh{} set distance to self to big distance}
+        \PY{n}{max\PYZus{}dist} \PY{o}{=} \PY{n}{distances}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{distances}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{n}{distances}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{max\PYZus{}dist} \PY{o}{*} \PY{l+m+mi}{100}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} Set one of the FLs on operational to test}
+        \PY{n}{facility\PYZus{}locations}\PY{p}{[}\PY{l+m+mi}{7}\PY{p}{]}\PY{o}{.}\PY{n}{operational} \PY{o}{=} \PY{l+m+mi}{1}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{These hubs are operational:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{p}{[}\PY{n}{a}\PY{o}{.}\PY{n}{id} \PY{k}{for} \PY{n}{a} \PY{o+ow}{in} \PY{n}{supply\PYZus{}points} \PY{o}{+} \PY{n}{facility\PYZus{}locations} \PY{k}{if} \PY{n}{a}\PY{o}{.}\PY{n}{operational} \PY{o+ow}{is} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+These hubs are operational: [0, 8]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} allocate each demand point to either a supply point or a facility location}
+        \PY{k}{def} \PY{n+nf}{allocate}\PY{p}{(}\PY{n}{supply\PYZus{}points}\PY{p}{,} \PY{n}{demand\PYZus{}points}\PY{p}{,} \PY{n}{facility\PYZus{}locations}\PY{p}{,} \PY{n}{distances}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    Returns an allocation matrix for [n,h]}
+        \PY{l+s+sd}{    if [n,h] is 1: node n is allocated to supply hub h}
+        \PY{l+s+sd}{    The full size of the matrix is n*n}
+        \PY{l+s+sd}{    indexes are based on node.id}
+        \PY{l+s+sd}{    }
+        \PY{l+s+sd}{    Assumptions:}
+        \PY{l+s+sd}{    All allocations are made based on the minimum distance}
+        \PY{l+s+sd}{    Supply points are not allocated to other nodes, since they are supplied by upstream logistics, which is out of scope    }
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+        
+            \PY{c+c1}{\PYZsh{} list of all IDs for operational supply points and facility locations}
+            \PY{n}{operational\PYZus{}hubs\PYZus{}id} \PY{o}{=} \PY{p}{[}
+                \PY{n}{a}\PY{o}{.}\PY{n}{id} \PY{k}{for} \PY{n}{a} \PY{o+ow}{in} \PY{n}{supply\PYZus{}points} \PY{o}{+} \PY{n}{facility\PYZus{}locations} \PY{k}{if} \PY{n}{a}\PY{o}{.}\PY{n}{operational} \PY{o+ow}{is} \PY{l+m+mi}{1}
+            \PY{p}{]}
+        
+            \PY{c+c1}{\PYZsh{}allocation matrix of all\PYZus{}nodes x all\PYZus{}nodes}
+            \PY{n}{allocation\PYZus{}matrix} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{n+nb}{len}\PY{p}{(}\PY{n}{all\PYZus{}nodes}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{all\PYZus{}nodes}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} for each operational facility location:}
+            \PY{c+c1}{\PYZsh{} we skip supply points, because we don\PYZsq{}t consider upstream logistics}
+            \PY{k}{for} \PY{n}{fl} \PY{o+ow}{in} \PY{p}{[}\PY{n}{fl} \PY{k}{for} \PY{n}{fl} \PY{o+ow}{in} \PY{n}{facility\PYZus{}locations} \PY{k}{if} \PY{n}{fl}\PY{o}{.}\PY{n}{operational} \PY{o+ow}{is} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{} choose one of other operational hubs that is closest (distance to iself is made very large while creating distance matrix)}
+                \PY{n}{closest\PYZus{}i} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argmin}\PY{p}{(}
+                    \PY{p}{[}\PY{n}{distances}\PY{p}{[}\PY{n}{hub\PYZus{}id}\PY{p}{,} \PY{n}{fl}\PY{o}{.}\PY{n}{id}\PY{p}{]} \PY{k}{for} \PY{n}{hub\PYZus{}id} \PY{o+ow}{in} \PY{n}{operational\PYZus{}hubs\PYZus{}id}\PY{p}{]}\PY{p}{)}
+                \PY{c+c1}{\PYZsh{} allocate me to that hub}
+                \PY{n}{allocation\PYZus{}matrix}\PY{p}{[}\PY{n}{fl}\PY{o}{.}\PY{n}{id}\PY{p}{,} \PY{n}{operational\PYZus{}hubs\PYZus{}id}\PY{p}{[}\PY{n}{closest\PYZus{}i}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+        
+            \PY{c+c1}{\PYZsh{} For each demand point}
+            \PY{k}{for} \PY{n}{dp} \PY{o+ow}{in} \PY{n}{demand\PYZus{}points}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{} Assumption: Each demand point gets 1 location allocated. If 2 locations have same distance, choose first}
+                \PY{c+c1}{\PYZsh{} check which supply point or facility location is closest}
+                \PY{c+c1}{\PYZsh{} closest = the index of the minimum distance of the list of distances between this demand point and all supply points}
+                \PY{n}{closest\PYZus{}i} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argmin}\PY{p}{(}
+                    \PY{p}{[}\PY{n}{distances}\PY{p}{[}\PY{n}{hub\PYZus{}id}\PY{p}{,} \PY{n}{dp}\PY{o}{.}\PY{n}{id}\PY{p}{]} \PY{k}{for} \PY{n}{hub\PYZus{}id} \PY{o+ow}{in} \PY{n}{operational\PYZus{}hubs\PYZus{}id}\PY{p}{]}\PY{p}{)}
+        
+                \PY{c+c1}{\PYZsh{} Set allocation 1 if j is closest to this demand point (or i)}
+                \PY{c+c1}{\PYZsh{}i: demand point index, j: supply point index}
+                \PY{n}{allocation\PYZus{}matrix}\PY{p}{[}\PY{n}{dp}\PY{o}{.}\PY{n}{id}\PY{p}{,} \PY{n}{operational\PYZus{}hubs\PYZus{}id}\PY{p}{[}\PY{n}{closest\PYZus{}i}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+        
+            \PY{k}{return} \PY{n}{allocation\PYZus{}matrix}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{allocation\PYZus{}matrix} \PY{o}{=} \PY{n}{allocate}\PY{p}{(}\PY{n}{supply\PYZus{}points}\PY{p}{,}\PY{n}{demand\PYZus{}points}\PY{p}{,}\PY{n}{facility\PYZus{}locations}\PY{p}{,}\PY{n}{distances}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} OLD function calculate transportation costs}
+         \PY{k}{def} \PY{n+nf}{calc\PYZus{}transportation\PYZus{}costs\PYZus{}old}\PY{p}{(}\PY{n}{supply\PYZus{}points}\PY{p}{,} \PY{n}{demand\PYZus{}points}\PY{p}{,}
+                                        \PY{n}{facility\PYZus{}locations}\PY{p}{,} \PY{n}{distances}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    TODO: write description}
+         \PY{l+s+sd}{    This old function calculates costs assuming 1 operational location}
+         \PY{l+s+sd}{    It also assumes that the supply point only delivers to the FL}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{c+c1}{\PYZsh{} create variable representing costs}
+             \PY{n}{transport\PYZus{}costs} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{c+c1}{\PYZsh{} For each facility location}
+             \PY{k}{for} \PY{n}{fl} \PY{o+ow}{in} \PY{n}{facility\PYZus{}locations}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} for each operational facility location}
+                 \PY{k}{if} \PY{n}{fl}\PY{o}{.}\PY{n}{operational} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:}
+                     \PY{c+c1}{\PYZsh{}for each supply and demand point}
+                     \PY{k}{for} \PY{n}{a} \PY{o+ow}{in} \PY{n}{supply\PYZus{}points} \PY{o}{+} \PY{n}{demand\PYZus{}points}\PY{p}{:}
+                         \PY{c+c1}{\PYZsh{}add costs of transportation}
+                         \PY{n}{transport\PYZus{}costs} \PY{o}{=} \PY{n}{transport\PYZus{}costs} \PY{o}{+} \PY{n}{distances}\PY{p}{[}\PY{n}{a}\PY{o}{.}\PY{n}{id}\PY{p}{,} \PY{n}{fl}\PY{o}{.}
+                                                                       \PY{n+nb}{id}\PY{p}{]} \PY{o}{*} \PY{n}{unit\PYZus{}transport\PYZus{}cost}
+         
+             \PY{k}{return} \PY{n}{transport\PYZus{}costs}
+         
+         
+         \PY{c+c1}{\PYZsh{} requires validation}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{k}{def} \PY{n+nf}{calc\PYZus{}costs}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+         
+             \PY{c+c1}{\PYZsh{} calc opening costs of facilities}
+             \PY{c+c1}{\PYZsh{} assumption: supply point, i.e. airport, is already opened}
+             \PY{n}{opened\PYZus{}fl} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{p}{[}\PY{n}{fl}\PY{o}{.}\PY{n}{operational} \PY{k}{for} \PY{n}{fl} \PY{o+ow}{in} \PY{n}{facility\PYZus{}locations}\PY{p}{]}\PY{p}{)}
+             \PY{n}{total\PYZus{}opening\PYZus{}costs} \PY{o}{=} \PY{n}{opened\PYZus{}fl} \PY{o}{*} \PY{n}{unit\PYZus{}opening\PYZus{}costs}
+         
+             \PY{c+c1}{\PYZsh{} Calc transportation costs}
+             \PY{n}{total\PYZus{}distance} \PY{o}{=} \PY{p}{(}\PY{n}{allocation\PYZus{}matrix} \PY{o}{*} \PY{n}{distances}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+             \PY{n}{transportation\PYZus{}costs} \PY{o}{=} \PY{n}{total\PYZus{}distance} \PY{o}{*} \PY{n}{unit\PYZus{}transport\PYZus{}cost}
+         
+             
+             \PY{c+c1}{\PYZsh{} Calc social costs}
+             \PY{c+c1}{\PYZsh{} TODO}
+             \PY{c+c1}{\PYZsh{} Now social logistics costs is included in transportation cost}
+         
+             \PY{k}{return} \PY{n}{total\PYZus{}opening\PYZus{}costs} \PY{o}{+} \PY{n}{transportation\PYZus{}costs}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{calc\PYZus{}costs}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}42}]:} 145.21196945843616
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} \PYZsh{} Objective functions}
+         \PY{c+c1}{\PYZsh{} \PYZsh{} opening costs: objective from gutjahr \PYZam{} Dzubur 2016}
+         \PY{c+c1}{\PYZsh{} \PYZsh{} costs = construction\PYZus{}costs + transportation\PYZus{}costs}
+         
+         \PY{c+c1}{\PYZsh{} \PYZsh{} objective 1}
+         
+         \PY{c+c1}{\PYZsh{} construction\PYZus{}costs = 0}
+         \PY{c+c1}{\PYZsh{} transportation\PYZus{}costs = calc\PYZus{}transportation\PYZus{}costs}
+         \PY{c+c1}{\PYZsh{} costs = transportation\PYZus{}costs + construction\PYZus{}costs}
+         \PY{c+c1}{\PYZsh{} minimise(costs)}
+\end{Verbatim}
+
+
+    \section{Case results}\label{case-results}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{} \PYZsh{} test to check optimisation}
+         \PY{c+c1}{\PYZsh{} for i in facility\PYZus{}locations:}
+         \PY{c+c1}{\PYZsh{}     i.operational = 1}
+         
+         \PY{c+c1}{\PYZsh{}     print(i.name,i.id,}
+         \PY{c+c1}{\PYZsh{}           calc\PYZus{}transportation\PYZus{}costs(supply\PYZus{}points, demand\PYZus{}points,}
+         \PY{c+c1}{\PYZsh{}                                     facility\PYZus{}locations, distances))}
+         
+         \PY{c+c1}{\PYZsh{}     i.operational = 0}
+\end{Verbatim}
+
+
+    \subsection{Graphical representation of
+case}\label{graphical-representation-of-case}
+
+    \subsubsection{Creating allocation
+lines}\label{creating-allocation-lines}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{allocation\PYZus{}lines} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{n+nb}{len}\PY{p}{(}\PY{n}{all\PYZus{}nodes}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} creates matrix x1,y1,x2,y2}
+         \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{line} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{allocation\PYZus{}matrix}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{allocation\PYZus{}matrix}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{k}{continue}
+             \PY{n}{allocation\PYZus{}lines}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{all\PYZus{}nodes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{location}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} Assumption: Only 1 location allocated \PYZsh{} if changing: loop over list comprehension: [more than 0 allocated]}
+             \PY{n}{allocation\PYZus{}lines}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mi}{4}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}
+                 \PY{p}{(}\PY{n}{all\PYZus{}nodes}\PY{p}{)}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{line}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{location}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{allocation\PYZus{}lines}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:} array([[0.        , 0.        , 0.        , 0.        ],
+                [0.        , 0.        , 0.        , 0.        ],
+                [0.        , 0.        , 0.        , 0.        ],
+                [0.        , 0.        , 0.        , 0.        ],
+                [0.        , 0.        , 0.        , 0.        ],
+                [0.        , 0.        , 0.        , 0.        ],
+                [0.        , 0.        , 0.        , 0.        ],
+                [0.        , 0.        , 0.        , 0.        ],
+                [1.86105512, 0.66703163, 0.83677107, 3.9570269 ],
+                [0.        , 0.        , 0.        , 0.        ],
+                [0.        , 0.        , 0.        , 0.        ],
+                [1.96063773, 3.66246539, 0.83677107, 3.9570269 ],
+                [6.76720687, 1.9222047 , 1.86105512, 0.66703163],
+                [7.63748162, 9.11832568, 0.83677107, 3.9570269 ],
+                [3.14217672, 1.99387299, 1.86105512, 0.66703163],
+                [5.81605197, 6.88285141, 0.83677107, 3.9570269 ],
+                [8.74987993, 6.20117727, 0.83677107, 3.9570269 ],
+                [0.78799731, 1.59283441, 1.86105512, 0.66703163],
+                [4.8549508 , 5.27608265, 0.83677107, 3.9570269 ],
+                [0.63651151, 0.28635434, 1.86105512, 0.66703163],
+                [3.95207129, 1.08437324, 1.86105512, 0.66703163]])
+\end{Verbatim}
+            
+    \subsubsection{Plotting Locations and
+allocations}\label{plotting-locations-and-allocations}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mf}{10.5}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mf}{10.5}\PY{p}{]}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{demand\PYZus{}points}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{x}\PY{p}{,} \PY{n}{x}\PY{o}{.}\PY{n}{y}\PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{green}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{marker}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZlt{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{facility\PYZus{}locations}\PY{p}{:}
+             \PY{k}{if} \PY{n}{x}\PY{o}{.}\PY{n}{operational} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{x}\PY{p}{,} \PY{n}{x}\PY{o}{.}\PY{n}{y}\PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{red}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{s}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+             \PY{k}{if} \PY{n}{x}\PY{o}{.}\PY{n}{operational} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{yes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{x}\PY{p}{,} \PY{n}{x}\PY{o}{.}\PY{n}{y}\PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{blue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{s}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}
+         \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{supply\PYZus{}points}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{x}\PY{p}{,} \PY{n}{x}\PY{o}{.}\PY{n}{y}\PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{blue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZgt{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} plot allocation lines}
+         
+         \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{allocation\PYZus{}lines}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{line}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{line}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{green}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} plt.plot([0,4], [8,9])}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+yes
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_42_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mf}{10.5}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mf}{10.5}\PY{p}{]}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{demand\PYZus{}points}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{x}\PY{p}{,} \PY{n}{x}\PY{o}{.}\PY{n}{y}\PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{green}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{marker}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZlt{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{facility\PYZus{}locations}\PY{p}{:}
+         \PY{c+c1}{\PYZsh{}     if x.operational == 1:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{x}\PY{p}{,} \PY{n}{x}\PY{o}{.}\PY{n}{y}\PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{red}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{supply\PYZus{}points}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{x}\PY{p}{,} \PY{n}{x}\PY{o}{.}\PY{n}{y}\PY{p}{,}\PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{blue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZgt{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_43_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{EMA model evaluator}\label{ema-model-evaluator}
+
+    \subsection{EMA pseudocode}\label{ema-pseudocode}
+
+\begin{verbatim}
+Define classes
+Generate case
+    create locations
+Load EMA model
+    specifies:
+        demand landscape
+        unit transport costs
+        unit opening costs
+        Max nr of FL to be opened
+    calculates
+        distances
+        allocation
+        demand (allocated) XX TODO
+        objectives
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} Imports}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{import} \PY{n+nn}{random}
+         \PY{k+kn}{import} \PY{n+nn}{ema\PYZus{}workbench} \PY{k}{as} \PY{n+nn}{em}
+         \PY{k+kn}{from} \PY{n+nn}{ema\PYZus{}workbench} \PY{k}{import} \PY{p}{(}\PY{n}{Model}\PY{p}{,} \PY{n}{RealParameter}\PY{p}{,} \PY{n}{IntegerParameter}\PY{p}{,} \PY{n}{Constant}\PY{p}{,} \PY{n}{ScalarOutcome}\PY{p}{,} \PY{n}{ema\PYZus{}logging}\PY{p}{,}
+                                    \PY{n}{perform\PYZus{}experiments}\PY{p}{,} \PY{n}{Scenario}\PY{p}{,} \PY{n}{Policy}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{ema\PYZus{}logging}\PY{o}{.}\PY{n}{log\PYZus{}to\PYZus{}stderr}\PY{p}{(}\PY{n}{ema\PYZus{}logging}\PY{o}{.}\PY{n}{INFO}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} <Logger EMA (DEBUG)>
+\end{Verbatim}
+            
+    \subsection{Model}\label{model}
+
+    \subsubsection{Define classes and Case
+settings}\label{define-classes-and-case-settings}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} Classes}
+         \PY{k}{class} \PY{n+nc}{demand\PYZus{}class}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Demand points such as affected cities or villages\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{name}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{demand}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DP}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{name}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{type} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{demand}\PY{l+s+s2}{\PYZdq{}}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{x} \PY{o}{=} \PY{n}{x}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{y} \PY{o}{=} \PY{n}{y}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{location} \PY{o}{=} \PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{x}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{y}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{demand} \PY{o}{=} \PY{n}{demand}
+         
+         
+         \PY{k}{class} \PY{n+nc}{supply\PYZus{}class}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Supply points such as airports or seaports\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{name}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{supply}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SP}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{name}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{type} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{supply}\PY{l+s+s2}{\PYZdq{}}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{x} \PY{o}{=} \PY{n}{x}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{y} \PY{o}{=} \PY{n}{y}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{location} \PY{o}{=} \PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{x}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{y}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{supply} \PY{o}{=} \PY{n}{supply}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{operational} \PY{o}{=} \PY{l+m+mi}{1}
+         
+         
+         \PY{k}{class} \PY{n+nc}{facility\PYZus{}class}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}(Temporary) Distribution centers to distribute supply to demand\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{name}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{FL}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{name}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{type} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{facility}\PY{l+s+s2}{\PYZdq{}}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{x} \PY{o}{=} \PY{n}{x}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{y} \PY{o}{=} \PY{n}{y}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{location} \PY{o}{=} \PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{x}\PY{p}{,} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{y}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{operational} \PY{o}{=} \PY{l+m+mi}{0}
+         
+         
+         \PY{c+c1}{\PYZsh{} Case settings / Globals}
+         \PY{c+c1}{\PYZsh{} size\PYZus{}area = 10}
+         \PY{c+c1}{\PYZsh{} nr\PYZus{}demand\PYZus{}points = 10}
+         \PY{c+c1}{\PYZsh{} nr\PYZus{}supply\PYZus{}points = 1}
+         \PY{c+c1}{\PYZsh{} nr\PYZus{}optional\PYZus{}FL = 10}
+\end{Verbatim}
+
+
+    \subsubsection{Functions for Instantiating case and calculating
+objectives}\label{functions-for-instantiating-case-and-calculating-objectives}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{} Instantiate case functions}
+         \PY{c+c1}{\PYZsh{} Instantiate model}
+         
+         
+         \PY{c+c1}{\PYZsh{} Create airport as a supply point}
+         \PY{k}{def} \PY{n+nf}{create\PYZus{}supply\PYZus{}points}\PY{p}{(}\PY{n}{sup\PYZus{}xcors}\PY{p}{,} \PY{n}{sup\PYZus{}ycors}\PY{p}{,} \PY{n}{supply\PYZus{}at\PYZus{}sp}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{:}
+         
+             \PY{c+c1}{\PYZsh{}TODO get a list with specific supply values for each point}
+             \PY{n}{supply\PYZus{}at\PYZus{}sps} \PY{o}{=} \PY{p}{[}\PY{n}{supply\PYZus{}at\PYZus{}sp} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{sup\PYZus{}xcors}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+         
+             \PY{n}{supply\PYZus{}points} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{sup\PYZus{}xcors}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{supply\PYZus{}points}\PY{o}{.}\PY{n}{append}\PY{p}{(}
+                     \PY{n}{supply\PYZus{}class}\PY{p}{(}
+                         \PY{n}{name}\PY{o}{=}\PY{n}{i}\PY{p}{,}
+                         \PY{n}{x}\PY{o}{=}\PY{n}{sup\PYZus{}xcors}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}
+                         \PY{n}{y}\PY{o}{=}\PY{n}{sup\PYZus{}ycors}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}
+                         \PY{n}{supply}\PY{o}{=}\PY{n}{supply\PYZus{}at\PYZus{}sps}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{n}{supply\PYZus{}points}
+         
+         
+         \PY{c+c1}{\PYZsh{} Create demand points}
+         \PY{k}{def} \PY{n+nf}{create\PYZus{}demand\PYZus{}points}\PY{p}{(}\PY{n}{dp\PYZus{}xcors}\PY{p}{,} \PY{n}{dp\PYZus{}ycors}\PY{p}{,} \PY{n}{demand\PYZus{}at\PYZus{}dp}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+         
+             \PY{n}{demand\PYZus{}at\PYZus{}dps} \PY{o}{=} \PY{p}{[}\PY{n}{demand\PYZus{}at\PYZus{}dp} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{dp\PYZus{}xcors}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+         
+             \PY{n}{demand\PYZus{}points} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{dp\PYZus{}xcors}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{demand\PYZus{}points}\PY{o}{.}\PY{n}{append}\PY{p}{(}
+                     \PY{n}{demand\PYZus{}class}\PY{p}{(}
+                         \PY{n}{name}\PY{o}{=}\PY{n}{i}\PY{p}{,} \PY{n}{x}\PY{o}{=}\PY{n}{dp\PYZus{}xcors}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{dp\PYZus{}ycors}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{demand}\PY{o}{=}\PY{n}{demand\PYZus{}at\PYZus{}dps}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{n}{demand\PYZus{}points}
+         
+         
+         \PY{c+c1}{\PYZsh{} \PYZsh{} Create possible facility locations}
+         \PY{k}{def} \PY{n+nf}{create\PYZus{}facility\PYZus{}locations}\PY{p}{(}\PY{n}{fl\PYZus{}xcors}\PY{p}{,} \PY{n}{fl\PYZus{}ycors}\PY{p}{)}\PY{p}{:}
+         
+             \PY{n}{facility\PYZus{}locations} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{fl\PYZus{}xcors}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{facility\PYZus{}locations}\PY{o}{.}\PY{n}{append}\PY{p}{(}
+                     \PY{n}{facility\PYZus{}class}\PY{p}{(}\PY{n}{name}\PY{o}{=}\PY{n}{i}\PY{p}{,} \PY{n}{x}\PY{o}{=}\PY{n}{fl\PYZus{}xcors}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{fl\PYZus{}ycors}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{n}{facility\PYZus{}locations}
+         
+         
+         \PY{c+c1}{\PYZsh{} Create matrix with all distances}
+         \PY{k}{def} \PY{n+nf}{create\PYZus{}distance\PYZus{}matrix}\PY{p}{(}\PY{n}{all\PYZus{}nodes}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Creates a matrix with distances between all nodes}
+         \PY{l+s+sd}{    Input: list of all nodes (objects)}
+         \PY{l+s+sd}{    Output: Matrix with distances from [i,j]}
+         \PY{l+s+sd}{    i,j = from, to}
+         \PY{l+s+sd}{    Note: Matrix is symmetric: distances[i,j] = distances[j,i]}
+         \PY{l+s+sd}{    Note: Distance to self ([i,i]) is 100 times larger than largest distance in matrix}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{distances} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{n+nb}{len}\PY{p}{(}\PY{n}{all\PYZus{}nodes}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{all\PYZus{}nodes}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         
+             \PY{k}{def} \PY{n+nf}{calculate\PYZus{}distance}\PY{p}{(}\PY{n}{x1}\PY{p}{,} \PY{n}{y1}\PY{p}{,} \PY{n}{x2}\PY{p}{,} \PY{n}{y2}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{dx} \PY{o}{=} \PY{n}{x1} \PY{o}{\PYZhy{}} \PY{n}{x2}
+                 \PY{n}{dy} \PY{o}{=} \PY{n}{y1} \PY{o}{\PYZhy{}} \PY{n}{y2}
+                 \PY{k}{return} \PY{p}{(}\PY{n}{dx}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{dy}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mf}{0.5}
+         
+             \PY{c+c1}{\PYZsh{} calculate distance matrix}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{all\PYZus{}nodes}\PY{p}{)}\PY{p}{)}\PY{p}{:}  \PY{c+c1}{\PYZsh{}For every row}
+                 \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{all\PYZus{}nodes}\PY{p}{)}\PY{p}{)}\PY{p}{:}  \PY{c+c1}{\PYZsh{}For every column}
+                     \PY{n}{distances}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{calculate\PYZus{}distance}\PY{p}{(}
+                         \PY{n}{all\PYZus{}nodes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{x}\PY{p}{,} \PY{n}{all\PYZus{}nodes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{y}\PY{p}{,} \PY{n}{all\PYZus{}nodes}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{o}{.}\PY{n}{x}\PY{p}{,} \PY{n}{all\PYZus{}nodes}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{o}{.}\PY{n}{y}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} set distance to self to big distance}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{distances}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{distances}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{distances}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{100}
+         
+             \PY{k}{return} \PY{n}{distances}
+         
+         
+         \PY{c+c1}{\PYZsh{} allocate each demand point to either a supply point or a facility location}
+         \PY{k}{def} \PY{n+nf}{create\PYZus{}allocation\PYZus{}matrix}\PY{p}{(}\PY{n}{supply\PYZus{}points}\PY{p}{,} \PY{n}{demand\PYZus{}points}\PY{p}{,} \PY{n}{facility\PYZus{}locations}\PY{p}{,}
+                                      \PY{n}{distances}\PY{p}{,} \PY{n}{FL\PYZus{}range}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Returns an allocation matrix for [n,h]}
+         \PY{l+s+sd}{    if [n,h] is 1: node n is allocated to supply hub h}
+         \PY{l+s+sd}{    The full size of the matrix is n*n}
+         \PY{l+s+sd}{    indexes are based on node.id}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Assumptions:}
+         \PY{l+s+sd}{    All allocations are made based on the minimum distance}
+         \PY{l+s+sd}{    Supply points are not allocated to other nodes, since they are supplied by upstream logistics, which is out of scope    }
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+         
+             \PY{c+c1}{\PYZsh{} list of all IDs for operational supply points and facility locations}
+             \PY{n}{operational\PYZus{}hubs\PYZus{}id} \PY{o}{=} \PY{p}{[}
+                 \PY{n}{a}\PY{o}{.}\PY{n}{id} \PY{k}{for} \PY{n}{a} \PY{o+ow}{in} \PY{n}{supply\PYZus{}points} \PY{o}{+} \PY{n}{facility\PYZus{}locations} \PY{k}{if} \PY{n}{a}\PY{o}{.}\PY{n}{operational} \PY{o}{==} \PY{l+m+mi}{1}
+             \PY{p}{]}
+         
+             \PY{n}{all\PYZus{}nodes} \PY{o}{=} \PY{n}{supply\PYZus{}points} \PY{o}{+} \PY{n}{facility\PYZus{}locations} \PY{o}{+} \PY{n}{demand\PYZus{}points}
+             \PY{c+c1}{\PYZsh{}allocation matrix of all\PYZus{}nodes x all\PYZus{}nodes}
+             \PY{n}{allocation\PYZus{}matrix} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{n+nb}{len}\PY{p}{(}\PY{n}{all\PYZus{}nodes}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{all\PYZus{}nodes}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} for each operational facility location:}
+             \PY{c+c1}{\PYZsh{} we skip supply points, because we don\PYZsq{}t consider upstream logistics}
+             \PY{k}{for} \PY{n}{fl} \PY{o+ow}{in} \PY{p}{[}\PY{n}{fl} \PY{k}{for} \PY{n}{fl} \PY{o+ow}{in} \PY{n}{facility\PYZus{}locations} \PY{k}{if} \PY{n}{fl}\PY{o}{.}\PY{n}{operational} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} choose closest supply point (if multiple)           \PYZsh{} XX is still necessary? not used here: (distance to iself is made very large while creating distance matrix)}
+                 \PY{n}{closest\PYZus{}i} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argmin}\PY{p}{(}
+                     \PY{p}{[}\PY{n}{distances}\PY{p}{[}\PY{n}{sp\PYZus{}id}\PY{p}{,} \PY{n}{fl}\PY{o}{.}\PY{n}{id}\PY{p}{]} \PY{k}{for} \PY{n}{sp\PYZus{}id} \PY{o+ow}{in} \PY{p}{[}\PY{n}{sp}\PY{o}{.}\PY{n}{id} \PY{k}{for} \PY{n}{sp} \PY{o+ow}{in} \PY{n}{supply\PYZus{}points}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} allocate me to that supply point}
+                 \PY{n}{allocation\PYZus{}matrix}\PY{p}{[}\PY{n}{fl}\PY{o}{.}\PY{n}{id}\PY{p}{,} \PY{n}{operational\PYZus{}hubs\PYZus{}id}\PY{p}{[}\PY{n}{closest\PYZus{}i}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+         
+             \PY{c+c1}{\PYZsh{} For each demand point}
+             \PY{k}{for} \PY{n}{dp} \PY{o+ow}{in} \PY{n}{demand\PYZus{}points}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} Assumption: Each demand point gets 1 location allocated. If 2 locations have same distance, choose first}
+                 \PY{c+c1}{\PYZsh{} check which supply point or facility location is closest}
+                 \PY{c+c1}{\PYZsh{} closest = the index of the minimum distance of the list of distances between this demand point and all supply points}
+                 \PY{n}{closest\PYZus{}d} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{min}\PY{p}{(}
+                     \PY{p}{[}\PY{n}{distances}\PY{p}{[}\PY{n}{hub\PYZus{}id}\PY{p}{,} \PY{n}{dp}\PY{o}{.}\PY{n}{id}\PY{p}{]} \PY{k}{for} \PY{n}{hub\PYZus{}id} \PY{o+ow}{in} \PY{n}{operational\PYZus{}hubs\PYZus{}id}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{closest\PYZus{}i} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argmin}\PY{p}{(}
+                     \PY{p}{[}\PY{n}{distances}\PY{p}{[}\PY{n}{hub\PYZus{}id}\PY{p}{,} \PY{n}{dp}\PY{o}{.}\PY{n}{id}\PY{p}{]} \PY{k}{for} \PY{n}{hub\PYZus{}id} \PY{o+ow}{in} \PY{n}{operational\PYZus{}hubs\PYZus{}id}\PY{p}{]}\PY{p}{)}
+         
+                 \PY{c+c1}{\PYZsh{} Set allocation 1 if j is closest to this demand point (or i)}
+                 \PY{c+c1}{\PYZsh{}i: demand point index, j: supply point index}
+                 \PY{k}{if} \PY{n}{closest\PYZus{}d} \PY{o}{\PYZlt{}} \PY{n}{FL\PYZus{}range}\PY{p}{:}
+                     \PY{n}{allocation\PYZus{}matrix}\PY{p}{[}\PY{n}{dp}\PY{o}{.}\PY{n}{id}\PY{p}{,} \PY{n}{operational\PYZus{}hubs\PYZus{}id}\PY{p}{[}\PY{n}{closest\PYZus{}i}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+         
+             \PY{k}{return} \PY{n}{allocation\PYZus{}matrix}
+         
+         
+         \PY{k}{def} \PY{n+nf}{calc\PYZus{}costs}\PY{p}{(}\PY{n}{facility\PYZus{}locations}\PY{p}{,} \PY{n}{unit\PYZus{}opening\PYZus{}costs}\PY{p}{,} \PY{n}{unit\PYZus{}transport\PYZus{}cost}\PY{p}{,}
+                        \PY{n}{distances}\PY{p}{,} \PY{n}{allocation\PYZus{}matrix}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} calc opening costs of facilities}
+             \PY{c+c1}{\PYZsh{} assumption: supply point, i.e. airport, is already opened}
+             \PY{n}{nr\PYZus{}opened\PYZus{}fl} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{p}{[}\PY{n}{fl}\PY{o}{.}\PY{n}{operational} \PY{k}{for} \PY{n}{fl} \PY{o+ow}{in} \PY{n}{facility\PYZus{}locations}\PY{p}{]}\PY{p}{)}
+             \PY{n}{total\PYZus{}opening\PYZus{}costs} \PY{o}{=} \PY{n}{nr\PYZus{}opened\PYZus{}fl} \PY{o}{*} \PY{n}{unit\PYZus{}opening\PYZus{}costs}
+         
+             \PY{c+c1}{\PYZsh{} Calc transportation costs}
+             \PY{n}{total\PYZus{}distance} \PY{o}{=} \PY{p}{(}\PY{n}{allocation\PYZus{}matrix} \PY{o}{*} \PY{n}{distances}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+             \PY{n}{transportation\PYZus{}costs} \PY{o}{=} \PY{n}{total\PYZus{}distance} \PY{o}{*} \PY{n}{unit\PYZus{}transport\PYZus{}cost}
+         
+             \PY{c+c1}{\PYZsh{} Calc social costs}
+             \PY{c+c1}{\PYZsh{} TODO}
+             \PY{c+c1}{\PYZsh{} Now social logistics costs is included in transportation cost}
+         
+             \PY{k}{return} \PY{n}{total\PYZus{}opening\PYZus{}costs} \PY{o}{+} \PY{n}{transportation\PYZus{}costs}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} Functions for plotting}
+         \PY{k}{def} \PY{n+nf}{plotting\PYZus{}create\PYZus{}allocation\PYZus{}lines}\PY{p}{(}\PY{n}{all\PYZus{}nodes}\PY{p}{,} \PY{n}{allocation\PYZus{}matrix}\PY{p}{)}\PY{p}{:}
+         
+             \PY{n}{allocation\PYZus{}lines} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{n+nb}{len}\PY{p}{(}\PY{n}{all\PYZus{}nodes}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} creates matrix x1,y1,x2,y2}
+             \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{line} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{allocation\PYZus{}matrix}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{allocation\PYZus{}matrix}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                     \PY{k}{continue}
+                 \PY{n}{allocation\PYZus{}lines}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{all\PYZus{}nodes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{location}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} Assumption: Only 1 location allocated \PYZsh{} if changing: loop over list comprehension: [more than 0 allocated]}
+                 \PY{n}{allocation\PYZus{}lines}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{:}\PY{l+m+mi}{4}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{(}\PY{n}{all\PYZus{}nodes}\PY{p}{)}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{line}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{location}\PY{p}{)}
+         
+             \PY{k}{return} \PY{n}{allocation\PYZus{}lines}
+         
+         
+         \PY{k}{def} \PY{n+nf}{plotting\PYZus{}plot\PYZus{}map}\PY{p}{(}\PY{n}{demand\PYZus{}points}\PY{p}{,}
+                               \PY{n}{facility\PYZus{}locations}\PY{p}{,}
+                               \PY{n}{supply\PYZus{}points}\PY{p}{,}
+                               \PY{n}{allocation\PYZus{}lines}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{10.5}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{10.5}\PY{p}{]}\PY{p}{)}
+         
+             \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{demand\PYZus{}points}\PY{p}{:}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{x}\PY{p}{,} \PY{n}{x}\PY{o}{.}\PY{n}{y}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{green}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZlt{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+             \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{facility\PYZus{}locations}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{x}\PY{o}{.}\PY{n}{operational} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                     \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{x}\PY{p}{,} \PY{n}{x}\PY{o}{.}\PY{n}{y}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{red}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{x}\PY{o}{.}\PY{n}{operational} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:}
+                     \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{x}\PY{p}{,} \PY{n}{x}\PY{o}{.}\PY{n}{y}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{blue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}
+             \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{supply\PYZus{}points}\PY{p}{:}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{x}\PY{p}{,} \PY{n}{x}\PY{o}{.}\PY{n}{y}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{blue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZgt{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} plot allocation lines}
+             \PY{k}{if} \PY{n}{allocation\PYZus{}lines} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{False}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{allocation\PYZus{}lines}\PY{p}{:}
+                     \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{line}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{line}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{green}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} plt.plot([0,4], [8,9])}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{k}{def} \PY{n+nf}{FL\PYZus{}model}\PY{p}{(}\PY{n}{unit\PYZus{}opening\PYZus{}costs}\PY{p}{,}
+                      \PY{n}{unit\PYZus{}transport\PYZus{}cost}\PY{p}{,}
+                      \PY{n}{graphical\PYZus{}representation}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}
+                      \PY{n}{FL\PYZus{}range}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,}
+                      \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}\PY{p}{:}
+         
+             \PY{c+c1}{\PYZsh{}unpack kwargs}
+             \PY{n}{keys} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{kwargs}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+             \PY{n}{sp\PYZus{}xcors} \PY{o}{=} \PY{p}{[}\PY{n}{kwargs}\PY{p}{[}\PY{n}{x}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{n}{k} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{keys} \PY{k}{if} \PY{n}{k}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SPX}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+             \PY{n}{sp\PYZus{}ycors} \PY{o}{=} \PY{p}{[}\PY{n}{kwargs}\PY{p}{[}\PY{n}{x}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{n}{k} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{keys} \PY{k}{if} \PY{n}{k}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SPY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+             \PY{n}{dp\PYZus{}xcors} \PY{o}{=} \PY{p}{[}\PY{n}{kwargs}\PY{p}{[}\PY{n}{x}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{n}{k} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{keys} \PY{k}{if} \PY{n}{k}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DPX}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+             \PY{n}{dp\PYZus{}ycors} \PY{o}{=} \PY{p}{[}\PY{n}{kwargs}\PY{p}{[}\PY{n}{x}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{n}{k} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{keys} \PY{k}{if} \PY{n}{k}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DPY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+             \PY{n}{fl\PYZus{}xcors} \PY{o}{=} \PY{p}{[}\PY{n}{kwargs}\PY{p}{[}\PY{n}{x}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{n}{k} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{keys} \PY{k}{if} \PY{n}{k}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FLX}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+             \PY{n}{fl\PYZus{}ycors} \PY{o}{=} \PY{p}{[}\PY{n}{kwargs}\PY{p}{[}\PY{n}{x}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{n}{k} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{keys} \PY{k}{if} \PY{n}{k}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FLY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         
+             \PY{n}{fl\PYZus{}operational} \PY{o}{=} \PY{p}{[}\PY{n}{kwargs}\PY{p}{[}\PY{n}{x}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{n}{k} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{keys} \PY{k}{if} \PY{n}{k}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FLO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         
+             \PY{c+c1}{\PYZsh{}TODO Assign demand to demand points}
+             \PY{n}{dp\PYZus{}demand} \PY{o}{=} \PY{p}{[}\PY{n}{kwargs}\PY{p}{[}\PY{n}{x}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{n}{k} \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{keys} \PY{k}{if} \PY{n}{k}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DPD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         
+             \PY{c+c1}{\PYZsh{} set up model}
+         
+             \PY{n}{supply\PYZus{}points} \PY{o}{=} \PY{n}{create\PYZus{}supply\PYZus{}points}\PY{p}{(}\PY{n}{sp\PYZus{}xcors}\PY{p}{,} \PY{n}{sp\PYZus{}ycors}\PY{p}{)}
+             \PY{n}{demand\PYZus{}points} \PY{o}{=} \PY{n}{create\PYZus{}demand\PYZus{}points}\PY{p}{(}\PY{n}{dp\PYZus{}xcors}\PY{p}{,} \PY{n}{dp\PYZus{}ycors}\PY{p}{)}
+             \PY{n}{facility\PYZus{}locations} \PY{o}{=} \PY{n}{create\PYZus{}facility\PYZus{}locations}\PY{p}{(}\PY{n}{fl\PYZus{}xcors}\PY{p}{,} \PY{n}{fl\PYZus{}ycors}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Organise all nodes and create distance matrix}
+             \PY{n}{all\PYZus{}nodes} \PY{o}{=} \PY{n}{supply\PYZus{}points} \PY{o}{+} \PY{n}{facility\PYZus{}locations} \PY{o}{+} \PY{n}{demand\PYZus{}points}
+             \PY{c+c1}{\PYZsh{} Give all nodes in model an identifier corresponding to position in matrix}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{all\PYZus{}nodes}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{all\PYZus{}nodes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{id} \PY{o}{=} \PY{n}{i}
+         
+             \PY{c+c1}{\PYZsh{} Check if things are right}
+             \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{facility\PYZus{}locations}\PY{p}{)} \PY{o}{!=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{fl\PYZus{}operational}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Length FL arrays not equal, FL\PYZus{}model:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{facility\PYZus{}locations}\PY{p}{)}\PY{p}{,}
+                       \PY{n+nb}{len}\PY{p}{(}\PY{n}{fl\PYZus{}operational}\PY{p}{)}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} Set operational FLs from levers}
+             \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{fl} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{facility\PYZus{}locations}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{fl}\PY{o}{.}\PY{n}{operational} \PY{o}{=} \PY{n}{fl\PYZus{}operational}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+         
+             \PY{n}{distances} \PY{o}{=} \PY{n}{create\PYZus{}distance\PYZus{}matrix}\PY{p}{(}\PY{n}{all\PYZus{}nodes}\PY{p}{)}
+             \PY{n}{allocation\PYZus{}matrix} \PY{o}{=} \PY{n}{create\PYZus{}allocation\PYZus{}matrix}\PY{p}{(}
+                 \PY{n}{supply\PYZus{}points}\PY{p}{,} \PY{n}{demand\PYZus{}points}\PY{p}{,} \PY{n}{facility\PYZus{}locations}\PY{p}{,} \PY{n}{distances}\PY{p}{,} \PY{n}{FL\PYZus{}range}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} determine objectives}
+             \PY{n}{total\PYZus{}costs} \PY{o}{=} \PY{n}{calc\PYZus{}costs}\PY{p}{(}\PY{n}{facility\PYZus{}locations}\PY{p}{,} \PY{n}{unit\PYZus{}opening\PYZus{}costs}\PY{p}{,}
+                                      \PY{n}{unit\PYZus{}transport\PYZus{}cost}\PY{p}{,} \PY{n}{distances}\PY{p}{,} \PY{n}{allocation\PYZus{}matrix}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} give a graphical representation of instantiation and allocation}
+             \PY{k}{if} \PY{n}{graphical\PYZus{}representation} \PY{o}{==} \PY{k+kc}{True}\PY{p}{:}
+                 \PY{n}{allocation\PYZus{}lines} \PY{o}{=} \PY{n}{plotting\PYZus{}create\PYZus{}allocation\PYZus{}lines}\PY{p}{(}
+                     \PY{n}{all\PYZus{}nodes}\PY{p}{,} \PY{n}{allocation\PYZus{}matrix}\PY{p}{)}
+         
+                 \PY{n}{plotting\PYZus{}plot\PYZus{}map}\PY{p}{(}\PY{n}{demand\PYZus{}points}\PY{p}{,} \PY{n}{facility\PYZus{}locations}\PY{p}{,} \PY{n}{supply\PYZus{}points}\PY{p}{,}
+                                   \PY{n}{allocation\PYZus{}lines}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+             \PY{k}{return} \PY{n}{total\PYZus{}costs}\PY{p}{,} \PY{n+nb}{sum}\PY{p}{(}\PY{p}{[}\PY{n}{fl}\PY{o}{.}\PY{n}{operational} \PY{k}{for} \PY{n}{fl} \PY{o+ow}{in} \PY{n}{facility\PYZus{}locations}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{SPX} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SPX}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{:} \PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{\PYZcb{}}
+         \PY{n}{SPY} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SPY}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{:} \PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{\PYZcb{}}
+         \PY{n}{DPX} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DPX}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{:} \PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{\PYZcb{}}
+         \PY{n}{DPY} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DPY}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{:} \PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{\PYZcb{}}
+         \PY{n}{FLX} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{FLX}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{:} \PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{\PYZcb{}}
+         \PY{n}{FLY} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{FLY}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{:} \PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{\PYZcb{}}
+         
+         \PY{n}{FLO}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{FLO0}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{FLO1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{FLO2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{FLO3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{FLO4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{FLO5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{FL\PYZus{}model}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{k+kc}{True}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{SPX}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{SPY}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{DPX}\PY{p}{,}\PY{o}{*}\PY{o}{*}\PY{n}{DPY}\PY{p}{,}\PY{o}{*}\PY{o}{*}\PY{n}{FLX}\PY{p}{,}\PY{o}{*}\PY{o}{*}\PY{n}{FLY}\PY{p}{,}\PY{o}{*}\PY{o}{*}\PY{n}{FLO}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_56_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:} (320.52929538949127, 3)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} Meta parametric variables}
+        \PY{n}{nr\PYZus{}of\PYZus{}SPs} \PY{o}{=} \PY{l+m+mi}{1}
+        \PY{n}{nr\PYZus{}of\PYZus{}DPs} \PY{o}{=} \PY{l+m+mi}{10}
+        \PY{n}{nr\PYZus{}of\PYZus{}FLs} \PY{o}{=} \PY{l+m+mi}{6}
+        
+        \PY{c+c1}{\PYZsh{}Instantiate EMA model}
+        \PY{n}{FL\PYZus{}EMAmodel} \PY{o}{=} \PY{n}{Model}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{flmodel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{function}\PY{o}{=}\PY{n}{FL\PYZus{}model}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Specify constants}
+        \PY{n}{FL\PYZus{}EMAmodel}\PY{o}{.}\PY{n}{constants} \PY{o}{=} \PY{p}{[}
+            \PY{n}{Constant}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unit\PYZus{}opening\PYZus{}costs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}\PY{p}{,}
+            \PY{n}{Constant}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unit\PYZus{}transport\PYZus{}cost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}
+            \PY{n}{Constant}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{graphical\PYZus{}representation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{k+kc}{True}\PY{p}{)}
+        \PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{}Specify coordinates of locations}
+        \PY{c+c1}{\PYZsh{} 0 \PYZhy{} size area, range nr supply points}
+        \PY{n}{FL\PYZus{}EMAmodel}\PY{o}{.}\PY{n}{locations} \PY{o}{=} \PY{p}{[}
+            \PY{n}{RealParameter}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SPX}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{nr\PYZus{}of\PYZus{}SPs}\PY{p}{)}
+        \PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{n}{RealParameter}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SPY}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{nr\PYZus{}of\PYZus{}SPs}\PY{p}{)}\PY{p}{]} \PY{o}{+} \PY{p}{[}
+            \PY{n}{RealParameter}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DPX}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{nr\PYZus{}of\PYZus{}DPs}\PY{p}{)}
+        \PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{n}{RealParameter}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DPY}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{nr\PYZus{}of\PYZus{}DPs}\PY{p}{)}\PY{p}{]} \PY{o}{+} \PY{p}{[}
+            \PY{n}{RealParameter}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{FLX}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{nr\PYZus{}of\PYZus{}FLs}\PY{p}{)}
+        \PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{n}{RealParameter}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{FLY}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{nr\PYZus{}of\PYZus{}FLs}\PY{p}{)}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{}Specify uncertainties}
+        \PY{n}{FL\PYZus{}EMAmodel}\PY{o}{.}\PY{n}{uncertainties} \PY{o}{=} \PY{n}{FL\PYZus{}EMAmodel}\PY{o}{.}\PY{n}{locations}
+        \PY{c+c1}{\PYZsh{}     RealParameter(\PYZsq{}FL\PYZus{}x\PYZus{}cor\PYZus{}0\PYZsq{}, 0, areasize),}
+        \PY{c+c1}{\PYZsh{}     RealParameter(\PYZsq{}FL\PYZus{}x\PYZus{}cor\PYZus{}1\PYZsq{}, 0, areasize),}
+        \PY{c+c1}{\PYZsh{}     RealParameter(\PYZsq{}FL\PYZus{}y\PYZus{}cor\PYZus{}0\PYZsq{}, 0, areasize),}
+        \PY{c+c1}{\PYZsh{}     RealParameter(\PYZsq{}FL\PYZus{}y\PYZus{}cor\PYZus{}1\PYZsq{}, 0, areasize),}
+        \PY{c+c1}{\PYZsh{}     RealParameter(\PYZsq{}x\PYZsq{}, 0, 1),}
+        \PY{c+c1}{\PYZsh{}     RealParameter(\PYZsq{}x\PYZsq{}, 0, 1)}
+        \PY{c+c1}{\PYZsh{} ]}
+        
+        \PY{c+c1}{\PYZsh{} \PYZsh{} Specify levers}
+        \PY{c+c1}{\PYZsh{} Facility Location Operational: [0,1]}
+        \PY{n}{FL\PYZus{}EMAmodel}\PY{o}{.}\PY{n}{levers} \PY{o}{=} \PY{p}{[}
+            \PY{n}{IntegerParameter}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{FLO}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{nr\PYZus{}of\PYZus{}FLs}\PY{p}{)}
+        \PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} FL\PYZus{}EMAmodel.c}
+        
+        \PY{c+c1}{\PYZsh{} Specify outcomes}
+        \PY{n}{FL\PYZus{}EMAmodel}\PY{o}{.}\PY{n}{outcomes} \PY{o}{=} \PY{p}{[}
+            \PY{n}{ScalarOutcome}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total\PYZus{}cost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+            \PY{c+c1}{\PYZsh{}     ScalarOutcome(\PYZsq{}message\PYZus{}string\PYZsq{}),}
+            \PY{n}{ScalarOutcome}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{operational\PYZus{}FL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        NameError                                 Traceback (most recent call last)
+
+        <ipython-input-2-6c2513b395cf> in <module>()
+          5 
+          6 \#Instantiate EMA model
+    ----> 7 FL\_EMAmodel = Model('flmodel', function=FL\_model)
+          8 
+          9 \#Specify constants
+    
+
+        NameError: name 'Model' is not defined
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{IntegerParameter}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} IntegerParameter('test', 0, 2)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} 
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:} \{'FLO0': 0, 'FLO1': 0, 'FLO2': 0, 'FLO3': 0, 'FLO4': 0, 'FLO5': 0\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{Policy}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{no\PYZus{}FLs}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{o}{*}\PY{o}{*}\PY{p}{\PYZob{}}\PY{n}{lever}\PY{o}{.}\PY{n}{name}\PY{p}{:} \PY{l+m+mi}{0} \PY{k}{for} \PY{n}{lever} \PY{o+ow}{in} \PY{n}{FL\PYZus{}EMAmodel}\PY{o}{.}\PY{n}{levers}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:} \{'FLO0': 0, 'FLO1': 0, 'FLO2': 0, 'FLO3': 0, 'FLO4': 0, 'FLO5': 0\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k+kn}{from} \PY{n+nn}{ema\PYZus{}workbench}\PY{n+nn}{.}\PY{n+nn}{em\PYZus{}framework} \PY{k}{import} \PY{n}{sample\PYZus{}levers}
+         
+         \PY{n}{samples} \PY{o}{=} \PY{n}{sample\PYZus{}levers}\PY{p}{(}\PY{n}{FL\PYZus{}EMAmodel}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{sample} \PY{o+ow}{in} \PY{n}{samples}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{sample}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'FLO0': 1, 'FLO1': 0, 'FLO2': 1, 'FLO3': 1, 'FLO4': 0, 'FLO5': 1\}
+\{'FLO0': 1, 'FLO1': 0, 'FLO2': 0, 'FLO3': 0, 'FLO4': 1, 'FLO5': 0\}
+\{'FLO0': 0, 'FLO1': 0, 'FLO2': 1, 'FLO3': 1, 'FLO4': 0, 'FLO5': 0\}
+\{'FLO0': 0, 'FLO1': 1, 'FLO2': 1, 'FLO3': 0, 'FLO4': 1, 'FLO5': 1\}
+\{'FLO0': 1, 'FLO1': 1, 'FLO2': 0, 'FLO3': 1, 'FLO4': 0, 'FLO5': 0\}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{FL\PYZus{}EMAmodel}\PY{o}{.}\PY{n}{run\PYZus{}model}\PY{p}{(}\PY{n}{Scenario}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{Policy}\PY{p}{(}\PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_62_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}113}]:} \PY{n}{random\PYZus{}scenario} \PY{o}{=} \PY{n}{Scenario}\PY{p}{(}\PY{o}{*}\PY{o}{*}\PY{p}{\PYZob{}}\PY{n}{unc}\PY{o}{.}\PY{n}{name}\PY{p}{:} \PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)} \PY{k}{for} \PY{n}{unc} \PY{o+ow}{in} \PY{n}{FL\PYZus{}EMAmodel}\PY{o}{.}\PY{n}{uncertainties}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}114}]:} \PY{k+kn}{from} \PY{n+nn}{ema\PYZus{}workbench} \PY{k}{import} \PY{n}{Policy}\PY{p}{,} \PY{n}{perform\PYZus{}experiments}
+          
+          \PY{n}{policy\PYZus{}no} \PY{o}{=} \PY{n}{Policy}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{No\PYZus{}FLs}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{o}{*}\PY{o}{*}\PY{p}{\PYZob{}}\PY{n}{lever}\PY{o}{.}\PY{n}{name}\PY{p}{:} \PY{l+m+mi}{0} \PY{k}{for} \PY{n}{lever} \PY{o+ow}{in} \PY{n}{FL\PYZus{}EMAmodel}\PY{o}{.}\PY{n}{levers}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{policy\PYZus{}all} \PY{o}{=} \PY{n}{Policy}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{All\PYZus{}FLs}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{o}{*}\PY{o}{*}\PY{p}{\PYZob{}}\PY{n}{lever}\PY{o}{.}\PY{n}{name}\PY{p}{:} \PY{l+m+mi}{1} \PY{k}{for} \PY{n}{lever} \PY{o+ow}{in} \PY{n}{FL\PYZus{}EMAmodel}\PY{o}{.}\PY{n}{levers}\PY{p}{\PYZcb{}}\PY{p}{)}
+          
+          \PY{n}{results} \PY{o}{=} \PY{n}{perform\PYZus{}experiments}\PY{p}{(}\PY{n}{FL\PYZus{}EMAmodel}\PY{p}{,} \PY{n}{random\PYZus{}scenario}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}
+          
+          
+          \PY{n}{experiments}\PY{p}{,} \PY{n}{outcomes} \PY{o}{=} \PY{n}{results}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[MainProcess/INFO] performing 1 scenarios * 3 policies * 1 model(s) = 3 experiments
+[MainProcess/INFO] performing experiments sequentially
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_64_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+[MainProcess/INFO] 1 cases completed
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_64_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+[MainProcess/INFO] 2 cases completed
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_64_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+[MainProcess/INFO] 3 cases completed
+[MainProcess/INFO] experiments finished
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}89}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{experiments}\PY{p}{)}\PY{c+c1}{\PYZsh{}[[\PYZdq{}FLO0\PYZdq{},\PYZdq{}FLO1\PYZdq{},\PYZdq{}FLO2\PYZdq{},\PYZdq{}FLO3\PYZdq{}]]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}89}]:}        DPX0      DPX1      DPX2      DPX3      DPX4      DPX5      DPX6  \textbackslash{}
+         0  8.511881  3.216641  7.190886  5.747872  5.591575  5.096612  1.634270   
+         1  0.659520  9.540083  0.529086  0.895843  4.775754  3.536806  8.336866   
+         
+                DPX7      DPX8      DPX9   {\ldots}         SPY0  FLO0  FLO1  FLO2  FLO3  \textbackslash{}
+         0  8.165164  2.712119  5.784892   {\ldots}     5.212050     0     0     0     0   
+         1  2.628721  9.053414  4.874742   {\ldots}     4.590406     0     0     0     0   
+         
+            FLO4  FLO5  scenario\_id  policy    model  
+         0     0     0           70       1  flmodel  
+         1     0     0           71       1  flmodel  
+         
+         [2 rows x 43 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{outcomes}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:}    Total\_cost  operational\_FL
+         0  441.705585             4.0
+         1  428.372205             4.0
+         2  237.854518             2.0
+         3  234.220134             2.0
+\end{Verbatim}
+            
+    \section{Platypus optimisation}\label{platypus-optimisation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} imports}
+         \PY{k+kn}{from} \PY{n+nn}{platypus} \PY{k}{import} \PY{n}{NSGAII}\PY{p}{,} \PY{n}{Problem}\PY{p}{,} \PY{n}{Binary}\PY{p}{,} \PY{n}{Real}\PY{p}{,} \PY{n}{Integer}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k}{def} \PY{n+nf}{FL\PYZus{}model}\PY{p}{(}\PY{n}{d\PYZus{}vars}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} None to make compatible with EMA}
+         
+             \PY{c+c1}{\PYZsh{} set global operational FL}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{d\PYZus{}vars}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{facility\PYZus{}locations}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{operational} \PY{o}{=} \PY{n}{d\PYZus{}vars}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+         
+             \PY{n}{trans\PYZus{}costs} \PY{o}{=} \PY{n}{calc\PYZus{}transportation\PYZus{}costs}\PY{p}{(}\PY{n}{supply\PYZus{}points}\PY{p}{,} \PY{n}{demand\PYZus{}points}\PY{p}{,}
+                                               \PY{n}{facility\PYZus{}locations}\PY{p}{,} \PY{n}{distances}\PY{p}{)}
+         
+             \PY{n}{costs} \PY{o}{=} \PY{n}{trans\PYZus{}costs} \PY{c+c1}{\PYZsh{}+ other costs}
+             
+             \PY{n}{objectives} \PY{o}{=} \PY{p}{[}
+                 \PY{n}{costs}\PY{p}{,}
+             \PY{p}{]}
+             \PY{n}{constraints} \PY{o}{=} \PY{p}{[}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{d\PYZus{}vars}\PY{p}{)}\PY{p}{,}\PY{p}{]}
+         
+             \PY{k}{return} \PY{n}{objectives}\PY{p}{,} \PY{n}{constraints}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{c+c1}{\PYZsh{} nr of decision variables, number of objectives, number of constraints}
+         \PY{n}{problem} \PY{o}{=} \PY{n}{Problem}\PY{p}{(}\PY{n}{nr\PYZus{}optional\PYZus{}FL}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Decision variables for possible facility locations}
+         \PY{n}{problem}\PY{o}{.}\PY{n}{types}\PY{p}{[}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{n}{Integer}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)} \PY{k}{for} \PY{n}{a} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{nr\PYZus{}optional\PYZus{}FL}\PY{p}{)}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} constraint: number of total operation FL}
+         \PY{n}{problem}\PY{o}{.}\PY{n}{constraints}\PY{p}{[}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{==}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{max\PYZus{}nr\PYZus{}FL}\PY{p}{)}
+         \PY{n}{problem}\PY{o}{.}\PY{n}{function} \PY{o}{=} \PY{n}{FL\PYZus{}model}
+         
+         \PY{n}{algorithm} \PY{o}{=} \PY{n}{NSGAII}\PY{p}{(}\PY{n}{problem}\PY{p}{)}
+         \PY{n}{algorithm}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{l+m+mi}{10000}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} 
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}50}]:} '==2'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k+kn}{from} \PY{n+nn}{platypus} \PY{k}{import} \PY{n}{nondominated}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n}{a} \PY{o}{=} \PY{n}{nondominated} \PY{p}{(}\PY{n}{algorithm}\PY{o}{.}\PY{n}{result}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{a}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}57}]:} [Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0],
+          Solution[[False],[True],[False],[False],[False],[False],[False],[False],[True],[False]|68.98869101013045|0.0]]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{a}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{objectives}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+68.98869101013045
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{a}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{objectives}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}44}]:} 33.50099827255527
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n+nb}{set}\PY{p}{(}\PY{p}{[}\PY{n}{i}\PY{o}{.}\PY{n}{objectives}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{a}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:} \{33.50099827255527\}
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

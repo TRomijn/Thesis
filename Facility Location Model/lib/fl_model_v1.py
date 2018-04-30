@@ -101,7 +101,7 @@ def create_distance_matrix(all_nodes, distance_to_self=999):
     """
     distances = np.zeros([len(all_nodes), len(all_nodes)])
 
-    def calculate_distance(x1, y1, x2, y2, method="euclidean"):
+    def calculate_distance(x1, y1, x2, y2, method="euclidean"): # TODO: include kwarg in model that chooses method
         
         """
         Lat = Y Long = X
@@ -171,7 +171,7 @@ def create_allocation_matrix(supply_points, demand_points, facility_locations,
     indexes are based on node.id
     
     Assumptions:
-    All allocations are made based on the minimum distance
+    All allocations are made based on the minimum distance. NOT disrupted distance, because unknown.
     Supply points are not allocated to other nodes, since they are supplied by upstream logistics, which is out of scope    
     """
 

@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 # For vincenty:
 from geopy.distance import great_circle
 
+__all__ = ["FL_model"]
 
 # Classes
 class demand_class:
@@ -90,7 +91,7 @@ def create_facility_locations(fl_xcors, fl_ycors):
 
 
 # Create matrix with all distances
-def create_distance_matrix(all_nodes, distance_to_self=999):
+def create_distance_matrix(all_nodes, dist_method, distance_to_self=999):
     """
     Creates a matrix with distances between all nodes
     Input: list of all nodes (objects)
@@ -101,13 +102,14 @@ def create_distance_matrix(all_nodes, distance_to_self=999):
     """
     distances = np.zeros([len(all_nodes), len(all_nodes)])
 
-    def calculate_distance(x1, y1, x2, y2, method="euclidean"): # TODO: include kwarg in model that chooses method
+    def calculate_distance(x1, y1, x2, y2, method): # TODO: include kwarg in model that chooses method
         
         """
         Lat = Y Long = X
         (lat, lon) is coordinate notation used by geopy
         method: euclidean or great_circle
         great_circle returns length in meters
+        Validated
         """
         if method == "euclidean":
             dx = x1 - x2
@@ -123,7 +125,7 @@ def create_distance_matrix(all_nodes, distance_to_self=999):
     for i in range(len(all_nodes)):  #For every row
         for j in range(len(all_nodes)):  #For every column
             distances[i, j] = calculate_distance(
-                all_nodes[i].x, all_nodes[i].y, all_nodes[j].x, all_nodes[j].y)
+                all_nodes[i].x, all_nodes[i].y, all_nodes[j].x, all_nodes[j].y, method=dist_method)
 
     # set distance to self to big distance
     for i in range(len(distances)):
@@ -328,10 +330,12 @@ def FL_model(unit_opening_costs,
              unit_transport_cost, # Cost for transporting one unit of supplies
              graphical_representation=False,
              FL_range=2,
+             dist_method="euclidean",
              lorry_speed=60, # km/h. Speed is Average speed. Constant, because roads are individually disrupted.
              **kwargs):
     """
     Inputs:
+    dist_method: euclidean or great_circle
     Returns: Objectives, Constraints
     """
 
@@ -372,7 +376,7 @@ def FL_model(unit_opening_costs,
     for i, fl in enumerate(facility_locations):
         fl.operational = fl_operational[i]
 
-    distances = create_distance_matrix(all_nodes)
+    distances = create_distance_matrix(all_nodes, dist_method=dist_method)
     
     # calculate road disruptions for FLs
     disr_roads = create_disrupted_road_matrix(distances, disruption_FLs, facility_locations)

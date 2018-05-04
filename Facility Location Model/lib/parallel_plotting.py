@@ -65,7 +65,7 @@ def normalize(data, minima, maxima):
     return norm_data
 
 def plot_optimal(data, labels, title):
-    # print(plt.__version__)
+    data = data[labels] # order data correctly
     minima = np.min(data, axis=0)
     maxima = np.max(data, axis=0)
     #print(maxima)

@@ -51,7 +51,7 @@ class facility_class:
 
 
 # Create airport as a supply point
-def create_supply_points(sup_xcors, sup_ycors, supply_at_sp=100): #TODO Validate supply_at_sp if influential, E.g. supply_at_sp = 0
+def create_supply_points(sup_xcors, sup_ycors, supply_at_sp=0): #XX, has no effect: uncapacitated
 
     #TODO get a list with specific supply values for each point
     supply_at_sps = [supply_at_sp for i in range(len(sup_xcors))]
@@ -68,9 +68,9 @@ def create_supply_points(sup_xcors, sup_ycors, supply_at_sp=100): #TODO Validate
 
 
 # Create demand points
-def create_demand_points(dp_xcors, dp_ycors, demand_at_dp=10):
+def create_demand_points(dp_xcors, dp_ycors, demand_at_dp):
 
-    demand_at_dps = [demand_at_dp for i in range(len(dp_xcors))]
+    demand_at_dps = [demand_at_dp[i] for i in range(len(dp_xcors))]
 
     demand_points = []
     for i in range(len(dp_xcors)):
@@ -354,11 +354,14 @@ def FL_model(unit_opening_costs,
     disruption_FLs = [kwargs[x] for x in [k for k in keys if k[:5] == 'DSRFL']]
     
     #TODO Assign demand to demand points
-    dp_demand = [kwargs[x] for x in [k for k in keys if k[:3] == 'DPD']]
+    dp_pop = [kwargs[x] for x in [k for k in keys if k[:5] == 'DPpop']]
+
+    #assumption: demand is proportionate to disruption. (so is disrupted travel time)
+    dp_demand = np.array(dp_pop) * np.array(disruption_DPs)
 
     # set up model
     supply_points = create_supply_points(sp_xcors, sp_ycors)
-    demand_points = create_demand_points(dp_xcors, dp_ycors)
+    demand_points = create_demand_points(dp_xcors, dp_ycors, dp_demand)
     facility_locations = create_facility_locations(fl_xcors, fl_ycors)
 
     # Organise all nodes and create distance matrix

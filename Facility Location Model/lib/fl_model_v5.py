@@ -216,6 +216,10 @@ def create_allocation_matrix(supply_points, demand_points, facility_locations,
     operational_fls_id = [
         fl.id for fl in facility_locations if fl.operational == 1
     ]
+
+    if len(operational_fls_id) == 0:
+    	raise ValueError("There are no operational facility locations, so the model won't run")
+
     for dp in demand_points:
         # Assumption: Each demand point gets 1 location allocated. If 2 locations have same distance, choose first
         # check which supply point or facility location is closest
@@ -283,12 +287,12 @@ def calc_costs(supply_points, facility_locations, demand_points,
     transport_costs = 0
     for j in [fl.id for fl in facility_locations]:
         for k in [sp.id for sp in supply_points]:
-            transport_costs += (distances[j, k] * supply_matrix[k, j] * 1)
+            transport_costs += (distances[j, k] * supply_matrix[k, j] * unit_transport_cost)
 
     for i in [dp.id for dp in demand_points]:
         for j in [fl.id for fl in facility_locations]:
-            transport_costs += (distances[i, j] * supply_matrix[j, i] * 1)
-    print(transport_costs)
+            transport_costs += (distances[i, j] * supply_matrix[j, i] * unit_transport_cost)
+    # print(transport_costs)
 
     # 3. calc operations costs
     nr_opened_fl = sum([fl.operational for fl in facility_locations])
@@ -356,6 +360,10 @@ def calc_max_distr_time(allo_matrix, disrdist, speed, supply_points,
     for r in routes:
         r_dist = disrdist[r[0], r[1]] + disrdist[r[1], r[2]]
         route_times.append(r_dist / speed)
+
+    if len(route_times) == 0:
+        # print("no single DP addressed")
+        return 0
 
     return max(route_times)
 
@@ -474,7 +482,7 @@ def FL_model(
 
     allocation_matrix = create_allocation_matrix(
         supply_points, demand_points, facility_locations, distances, FL_range)
-    # Assumption: allocation based on euclidean distance (because roads and road conditions are unknown)
+    # Assumption: allocation based on normal distance (because roads and road conditions are unknown)
 
     # determine objectives
 
@@ -499,7 +507,7 @@ def FL_model(
     max_distr_time = calc_max_distr_time(allocation_matrix, disr_roads,
                                          lorry_speed, supply_points,
                                          facility_locations, demand_points)
-    print(max_distr_time)
+    # print(max_distr_time)
     # give a graphical representation of instantiation and allocation
     if graphical_representation == True:
         allocation_lines = plotting_create_allocation_lines(

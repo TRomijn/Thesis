@@ -2,6 +2,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import re
 
 # For vincenty:
 from geopy.distance import great_circle
@@ -94,7 +95,7 @@ def create_facility_locations(fl_xcors, fl_ycors):
 
 # Create matrix with all distances
 def create_distance_matrix(
-        all_nodes, dist_method, distance_to_self=0
+        all_nodes, dist_method, table_dir=None ,distance_to_self=0
 ):  #TODO distance to self = unlimited. Pay attention to this with route matrix osrm
     """
     Creates a matrix with distances between all nodes
@@ -106,8 +107,7 @@ def create_distance_matrix(
     """
     
     if dist_method == "from_table":
-        print("semi-implemented")
-        distances = pd.read_csv('Data/routes_play_data_numpy.csv')
+        distances = pd.read_csv(table_dir)
         return distances.values
 
     distances = np.zeros([len(all_nodes), len(all_nodes)])
@@ -421,6 +421,10 @@ def plotting_plot_map(demand_points,
         for line in allocation_lines:
             plt.plot(line[[0, 2]], line[[1, 3]], c="green")
 
+def natural_sort(l): 
+    convert = lambda text: int(text) if text.isdigit() else text.lower() 
+    alphanum_key = lambda key: [ convert(c) for c in re.split('([0-9]+)', key) ] 
+    return sorted(l, key = alphanum_key)
 
 def FL_model(
         unit_opening_costs,
@@ -429,6 +433,7 @@ def FL_model(
         graphical_representation=False,
         FL_range=2,
         dist_method="euclidean",
+        table_dir=None,
         lorry_speed=60,  # km/h. Speed is Average speed. Constant, because roads are individually disrupted.
         **kwargs):
     """
@@ -437,8 +442,8 @@ def FL_model(
     Returns: Objectives, Constraints
     """
 
-    #unpack kwargs
-    keys = sorted(kwargs.keys())
+    #unpack kwargs, natural sorting for standard sequence
+    keys = natural_sort(kwargs.keys())
     sp_xcors = [kwargs[x] for x in [k for k in keys if k[:3] == 'SPX']]
     sp_ycors = [kwargs[x] for x in [k for k in keys if k[:3] == 'SPY']]
     dp_xcors = [kwargs[x] for x in [k for k in keys if k[:3] == 'DPX']]
@@ -477,7 +482,7 @@ def FL_model(
     for i, fl in enumerate(facility_locations):
         fl.operational = fl_operational[i]
 
-    distances = create_distance_matrix(all_nodes, dist_method=dist_method)
+    distances = create_distance_matrix(all_nodes, dist_method=dist_method, table_dir=table_dir)
 
     # calculate road disruptions for FLs
     disr_roads1 = create_disrupted_road_matrix(distances, disruption_FLs,
@@ -523,8 +528,16 @@ def FL_model(
                           allocation_lines)
         plt.show()
 
-    return total_costs, nr_uncovered_DPs, total_uncovered_demand, max_distr_time, sum(
-        [fl.operational for fl in facility_locations])
+    ### XXX Constraint
+    operational_fls_id = [fl.id for fl in facility_locations if fl.operational == 1]
+    if 0 in allocation_matrix.sum(axis=0)[operational_fls_id]:
+        all_op_fls_in_use = False
+    else:
+        all_op_fls_in_use = True
+
+
+    return total_costs, nr_uncovered_DPs, total_uncovered_demand, max_distr_time, all_op_fls_in_use
+    #sum([fl.operational for fl in facility_locations]), 
 
 
 #     return allocation_matrix, disr_roads, supply_points, facility_locations, demand_points

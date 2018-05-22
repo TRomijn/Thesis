@@ -1,3 +1,10 @@
+"""
+Facility Location Model
+@author: TRomijn
+
+Thesis EPA
+"""
+
 # Imports
 import numpy as np
 import pandas as pd

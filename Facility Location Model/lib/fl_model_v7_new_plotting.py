@@ -475,16 +475,13 @@ def plotting_plot_map2(demand_points,
         # plt.scatter(x.x, x.y, c="blue", marker=">")
 
     # plot allocation lines
-    # XXX TODO
     if allocation_lines is not False:
         # print("XXX", allocation_lines)
         for line in allocation_lines:
             if line[0] != 0:
-                print("XXXX",[[(n[1],n[0]),(n[3],n[2])] for n in [line]][0])
                 folium.PolyLine(
                     [[(n[1],n[0]),(n[3],n[2])] for n in [line]][0],
                     color="red", weight=1, opacity=0.5).add_to(map_1)
-
                 # plt.plot(line[[0, 2]], line[[1, 3]], c="green")
 
     return map_1

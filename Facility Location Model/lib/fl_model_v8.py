@@ -63,7 +63,7 @@ class facility_class:
 def create_supply_points(sup_xcors, sup_ycors,
                          supply_at_sp=0):  #XX, has no effect: uncapacitated
 
-    #TODO get a list with specific supply values for each point
+    #
     supply_at_sps = [supply_at_sp for i in range(len(sup_xcors))]
 
     supply_points = []
@@ -103,7 +103,7 @@ def create_facility_locations(fl_xcors, fl_ycors):
 # Create matrix with all distances
 def create_distance_matrix(
         all_nodes, dist_method, table_dir=None ,distance_to_self=0
-):  #TODO distance to self = unlimited. Pay attention to this with route matrix osrm
+):  
     """
     Creates a matrix with distances between all nodes
     Input: list of all nodes (objects)
@@ -121,7 +121,7 @@ def create_distance_matrix(
 
     def calculate_distance(
             x1, y1, x2, y2,
-            method):  # TODO: include kwarg in model that chooses method
+            method):  
         """
         Lat = Y Long = X
         (lat, lon) is coordinate notation used by geopy
@@ -231,7 +231,7 @@ def create_allocation_matrix(supply_points, demand_points, facility_locations,
     ]
 
     if len(operational_fls_id) == 0:
-    	raise ValueError("There are no operational facility locations, so the model won't run")
+        raise ValueError("There are no operational facility locations, so the model won't run")
 
     for dp in demand_points:
         # Assumption: Each demand point gets 1 location allocated. If 2 locations have same distance, choose first
@@ -358,7 +358,7 @@ def calc_uncov_DPs(allocation_matrix, demand_points):
 #     return tot_distr_time
 
 
-def calc_max_distr_time(allo_matrix, disrdist, speed, supply_points,
+def calc_max_distr_time(allo_matrix, disrdist, supply_points,
                         facility_locations, demand_points):
     routes = []
     for i in [dp.id for dp in demand_points]:
@@ -372,7 +372,7 @@ def calc_max_distr_time(allo_matrix, disrdist, speed, supply_points,
     route_times = []
     for r in routes:
         r_dist = disrdist[r[0], r[1]] + disrdist[r[1], r[2]]
-        route_times.append(r_dist / speed)
+        route_times.append(r_dist) #/ speed): duration instead of distances, no speed required
 
     if len(route_times) == 0:
         # print("no single DP addressed")
@@ -495,15 +495,18 @@ def FL_model(
         unit_opening_costs,
         unit_transport_cost,  # Cost for transporting one unit of supplies
         FL_operations_cost,
+        demand_per_affected,
         graphical_representation=False,
         FL_range=2,
         dist_method="euclidean",
         table_dir=None,
-        lorry_speed=60,  # km/h. Speed is Average speed. Constant, because roads are individually disrupted.
+        # lorry_speed="This should go",  # km/h. Speed is Average speed. Constant, because roads are individually disrupted.
         **kwargs):
     """
     Inputs:
     dist_method: euclidean, great_circle, or from_table
+    unit_transport_cost: cost per hour/ dollar/euroXX
+    FL_range: maximum travel time in hours
     Returns: Objectives, Constraints
     """
 
@@ -521,12 +524,22 @@ def FL_model(
     disruption_DPs = [kwargs[x] for x in [k for k in keys if k[:5] == 'DSRDP']]
     disruption_FLs = [kwargs[x] for x in [k for k in keys if k[:5] == 'DSRFL']]
 
-    #TODO Assign demand to demand points
     dp_pop = [kwargs[x] for x in [k for k in keys if k[:5] == 'DPpop']]
 
     #assumption: demand is proportionate to disruption. (so is disrupted travel time)
-    dp_demand = np.array(dp_pop) * np.array(disruption_DPs)
+    # affected pop = pop x impact
+    # demand = demand per affected x affected pop 
+    # print(disruption_DPs)
+    dp_demand = np.array(dp_pop) * (np.array(disruption_DPs)- 1) * demand_per_affected / 1000
+    # print (dp_demand)
 
+    # because routes (input data) are per second
+    #transport cost per second, instead of per hour
+    unit_transport_cost = unit_transport_cost/3600
+    # fl range in in seconds, not hours
+    if dist_method == "from_table":
+        FL_range = FL_range * 3600
+    
     # set up model
     supply_points = create_supply_points(sp_xcors, sp_ycors)
     demand_points = create_demand_points(dp_xcors, dp_ycors, dp_demand)
@@ -580,8 +593,7 @@ def FL_model(
     #     total_distr_time = calc_tot_distr_time(allocation_matrix, disr_roads,
     #                                            lorry_speed)
 
-    max_distr_time = calc_max_distr_time(allocation_matrix, disr_roads,
-                                         lorry_speed, supply_points,
+    max_distr_time = calc_max_distr_time(allocation_matrix, disr_roads,supply_points,
                                          facility_locations, demand_points)
     # print(max_distr_time)
     # give a graphical representation of instantiation and allocation

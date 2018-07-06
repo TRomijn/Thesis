@@ -40,7 +40,7 @@ def setup_parallel_plot(labels, maxima, minima):
     # for the last axis, we need 2 ticks (also for the right hand side
     ax.spines['right'].set_bounds(0, 1)
     ax.xaxis.set_major_locator(ticker.FixedLocator([i, i+1]))
-    ax.xaxis.set_ticklabels(labels[i-1:i+1], fontsize=fs, rotation=45)
+    ax.xaxis.set_ticklabels(labels[i-1:i+1], fontsize=fs, rotation=90)
     ax.text(i+1, 1.01, "{:.2f}".format(maxima[labels[-1]]), va="bottom", ha="center", fontsize=fs)
     ax.text(i+1, -0.01,"{:.2f}".format(minima[labels[-1]]), va="top", ha="center", fontsize=fs)
     

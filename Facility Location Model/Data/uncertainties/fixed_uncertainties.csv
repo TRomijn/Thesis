@@ -1,6 +1,0 @@
-var,lower,best_estimate,upper
-unit_opening_costs,50,100,200
-unit_transport_cost,0.5,1,2
-FL_operations_cost,20,30,50
-FL_range,30,50,150
-demand_per_affected,10,20,50

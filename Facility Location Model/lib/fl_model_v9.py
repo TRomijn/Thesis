@@ -383,7 +383,7 @@ def calc_uncov_DPs(allocation_matrix, demand_points):
 def calc_max_distr_time2(disrdist, facility_locations, demand_points):
     """
     This function calculates the equity objective.
-    max time to closest operational FL from each demand point
+    max travel time to closest operational FL from each demand point
     """
     # list of all dp ids
     all_dp_ids = [dp.id for dp in demand_points]

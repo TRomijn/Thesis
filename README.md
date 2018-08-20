@@ -6,4 +6,4 @@ Deep Uncertainty in Humanitarian Logistics: Simulation and Analysis of the Inter
 This repository contains all code and results for my MSc Thesis
 
 Link to Thesis:
-repository.tudelft.nl/... (Not published yet)
+http://resolver.tudelft.nl/uuid:580c5a9c-73dc-4195-930e-97c524a4b7c7
